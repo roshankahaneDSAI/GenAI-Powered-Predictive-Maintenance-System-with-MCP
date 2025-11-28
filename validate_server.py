@@ -3,7 +3,6 @@
 Quick syntax and import validation for machinery diagnostics server.
 Run before testing with Claude Desktop.
 """
-
 import sys
 from pathlib import Path
 
