@@ -27,7 +27,7 @@ class TestEnvelopeAnalysis:
                   np.sin(2*np.pi*8000*t))   # High freq
         
         # Apply bandpass filter (500-5000 Hz)
-        lowcut, highcut = 500, 5000
+        lowcut, highcut = 500, 4800
         nyq = fs / 2
         low = lowcut / nyq
         high = highcut / nyq

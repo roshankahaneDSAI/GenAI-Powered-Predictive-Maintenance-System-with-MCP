@@ -4,6 +4,7 @@ Test Report Generation System
 
 import sys
 from pathlib import Path
+import asyncio  # NEW
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -24,6 +25,16 @@ from report_generator import (
 )
 import numpy as np
 
+
+# --- Dummy context for async MCP tools (ctx.info is awaited inside tools) ---
+class DummyCtx:
+    async def info(self, message: str):
+        # No-op in tests
+        pass
+
+
+dummy_ctx = DummyCtx()
+
 print("=" * 70)
 print("REPORT GENERATION SYSTEM TEST")
 print("=" * 70)
@@ -35,10 +46,21 @@ print("-" * 70)
 
 signal_file = "real_train/baseline_1.csv"
 signal = load_signal_data(signal_file)
+print(f"Loaded signal from {signal_file}, length: {len(signal) if signal is not None else 'N/A'}")
 
 if signal is not None:
-    fft_result = analyze_fft(filename=signal_file, sampling_rate=97656, max_frequency=5000)
-    
+    # ✅ Properly await async analyze_fft
+    fft_result = asyncio.run(
+        analyze_fft(
+            filename=signal_file,
+            sampling_rate=97656,
+            max_frequency=5000,
+            segment_duration=None,  # analyze full signal for the report
+            random_seed=42,
+            ctx=dummy_ctx,
+        )
+    )
+
     report_result = save_fft_report(
         signal_file=signal_file,
         sampling_rate=97656,
@@ -48,7 +70,7 @@ if signal is not None:
         max_freq=5000,
         num_peaks=15
     )
-    
+
     print(f"✓ {report_result['message']}")
     print(f"  Path: {report_result['file_path']}")
     print(f"  Size: {report_result['file_size_kb']:.2f} KB")
@@ -69,39 +91,39 @@ if signal is not None:
     # Calculate envelope directly for report
     from scipy.signal import butter, filtfilt, hilbert
     from scipy.fft import fft, fftfreq
-    
+
     sampling_rate = 97656
     filter_low = 2000
     filter_high = 8000
-    
+
     # Bandpass filter
     nyq = sampling_rate / 2.0
     low = filter_low / nyq
     high = filter_high / nyq
     b, a = butter(4, [low, high], btype='band')
     filtered_signal = filtfilt(b, a, signal)
-    
+
     # Hilbert envelope
     analytic_signal = hilbert(filtered_signal)
     envelope = np.abs(analytic_signal)
-    
+
     # FFT of envelope
     N = len(envelope)
     env_fft = fft(envelope)
     env_freqs = fftfreq(N, 1/sampling_rate)
-    
+
     # Keep only positive frequencies
     pos_mask = env_freqs > 0
     env_frequencies = env_freqs[pos_mask]
     env_magnitudes = np.abs(env_fft[pos_mask]) / N * 2
-    
+
     bearing_freqs = {
         'BPFO': 81.13,
         'BPFI': 138.87,
         'BSF': 58.48,
         'FTF': 11.29
     }
-    
+
     report_result = save_envelope_report(
         signal_file=signal_file,
         sampling_rate=sampling_rate,
@@ -114,7 +136,7 @@ if signal is not None:
         max_freq=500,
         num_peaks=15
     )
-    
+
     print(f"✓ {report_result['message']}")
     print(f"  Path: {report_result['file_path']}")
     print(f"  Size: {report_result['file_size_kb']:.2f} KB")
@@ -131,11 +153,15 @@ print("-" * 70)
 
 signal_file = "real_train/baseline_1.csv"
 
-iso_result = evaluate_iso_20816(
-    signal_file,
-    sampling_rate=97656,
-    machine_group=2,
-    support_type="rigid"
+# ✅ Properly await async evaluate_iso_20816 with correct ctx + kwargs
+iso_result = asyncio.run(
+    evaluate_iso_20816(
+        ctx=dummy_ctx,
+        signal_file=signal_file,
+        sampling_rate=97656,
+        machine_group=2,
+        support_type="rigid",
+    )
 )
 
 report_result = save_iso_report(

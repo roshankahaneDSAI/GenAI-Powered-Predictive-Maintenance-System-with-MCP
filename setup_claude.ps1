@@ -91,18 +91,19 @@ Write-Host ""
 # 3. Verify server can start (quick test)
 Write-Host "Testing server startup..." -ForegroundColor Cyan
 $projectDir = Split-Path $PSScriptRoot -Parent
-if (Test-Path "$projectDir\src\machinery_diagnostics_server.py") {
+if (Test-Path "$projectDir\src\machinery_diagnostics_server.py") 
+{
     try {
         $testResult = python -m py_compile "$projectDir\src\machinery_diagnostics_server.py" 2>&1
         if ($LASTEXITCODE -eq 0) {
             Write-Host "✓ Server file syntax OK" -ForegroundColor Green
-        } else {
+            } else {
             Write-Host "✗ Server file has syntax errors" -ForegroundColor Red
             Write-Host "  $testResult" -ForegroundColor Red
-        }
-    } catch {
+            }
+        } catch {
         Write-Host "⚠️  Could not test server file" -ForegroundColor Yellow
-    }
+        }
 }
 
 # 4. Check data directory
@@ -110,11 +111,11 @@ $dataDir = "$projectDir\data\signals"
 if (Test-Path $dataDir) {
     $csvCount = (Get-ChildItem -Path $dataDir -Recurse -Filter "*.csv" | Measure-Object).Count
     Write-Host "✓ Data directory exists with $csvCount CSV files" -ForegroundColor Green
-} else {
+} 
+else {
     Write-Host "✗ Data directory not found: $dataDir" -ForegroundColor Red
 }
 
 Write-Host ""
 Write-Host "Setup complete! 🎉" -ForegroundColor Green
 Write-Host ""
-

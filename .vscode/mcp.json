@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "predictive-maintenance": {
+      "command": "D:/MyCase/Projects/DSAI/portfolio/GenAI-Powered-Predictive-Maintenance-System-with-MCP/.venv/Scripts/python.exe",
+      "args": [
+        "D:/MyCase/Projects/DSAI/portfolio/GenAI-Powered-Predictive-Maintenance-System-with-MCP/src/machinery_diagnostics_server.py"
+      ]
+    }
+  }
+}

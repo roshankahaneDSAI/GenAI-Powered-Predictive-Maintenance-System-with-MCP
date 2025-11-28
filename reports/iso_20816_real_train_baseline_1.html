@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Predictive Maintenance MCP Server">
+    <title>ISO 20816-3 - real_train/baseline_1.csv</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --background: #f8f9fa;
+            --card-background: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            opacity: 0.95;
+            font-size: 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .info-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+        
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .chart-container {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-success {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media print {
+            .header {
+                position: static;
+            }
+            .card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script type="application/json" id="report-metadata">
+{
+  "signal_file": "real_train/baseline_1.csv",
+  "rms_velocity": 1.5378421355681242,
+  "zone": "B",
+  "severity_level": "Acceptable",
+  "machine_group": 2,
+  "support_type": "rigid",
+  "report_type": "iso_20816"
+}
+</script>
+    
+    <div class="header">
+        <div class="header-content">
+            <h1>📋 ISO 20816-3 Evaluation</h1>
+            <p class="subtitle">real_train/baseline_1.csv</p>
+        </div>
+    </div>
+    <div class="container">
+        
+    <div style="text-align: center; margin: 2rem 0;">
+        <div style="display: inline-block; padding: 1.5rem 3rem; border-radius: 20px; background: #f39c12; color: white; font-size: 1.5rem; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            ⚠ Zone B - Acceptable
+        </div>
+    </div>
+    
+        
+    <div class="info-grid">
+        <div class="info-item">
+            <div class="info-label">RMS Velocity</div>
+            <div class="info-value">1.54 mm/s</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Evaluation Zone</div>
+            <div class="info-value" style="color: #f39c12;">Zone B</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Machine Group</div>
+            <div class="info-value">2</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Support Type</div>
+            <div class="info-value">Rigid</div>
+        </div>
+    </div>
+    
+        <div class='chart-container'><div id='iso-chart'></div></div>
+        
+    <div class="card">
+        <h3 class="card-title">📏 Zone Boundaries</h3>
+        <div class="info-grid">
+            <div class="info-item" style="border-left-color: #27ae60;">
+                <div class="info-label">Zone A/B</div>
+                <div class="info-value">1.4 mm/s</div>
+            </div>
+            <div class="info-item" style="border-left-color: #f39c12;">
+                <div class="info-label">Zone B/C</div>
+                <div class="info-value">2.8 mm/s</div>
+            </div>
+            <div class="info-item" style="border-left-color: #e67e22;">
+                <div class="info-label">Zone C/D</div>
+                <div class="info-value">4.5 mm/s</div>
+            </div>
+        </div>
+    </div>
+    
+        
+    <div class="card">
+        <h3 class="card-title">💡 Interpretation</h3>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-primary);">
+            ⚠️ SIGNAL CONVERTED: Acceleration (g) → Velocity (mm/s). Acceptable for unrestricted long-term operation.
+        </p>
+    </div>
+    
+    </div>
+    
+    <script>
+        var boundaries = {
+            AB: 1.4,
+            BC: 2.8,
+            CD: 4.5,
+            max: 5.8500000000000005
+        };
+        
+        var rmsVelocity = 1.5378421355681242;
+        
+        var trace1 = {
+            x: [boundaries.AB],
+            y: ['Vibration Severity'],
+            name: 'Zone A',
+            type: 'bar',
+            orientation: 'h',
+            marker: {
+                color: '#27ae60',
+                line: { color: '#229954', width: 2 }
+            },
+            hovertemplate: 'Zone A: 0 - ' + boundaries.AB + ' mm/s<br>New machine condition<extra></extra>'
+        };
+        
+        var trace2 = {
+            x: [boundaries.BC - boundaries.AB],
+            y: ['Vibration Severity'],
+            name: 'Zone B',
+            type: 'bar',
+            orientation: 'h',
+            marker: {
+                color: '#f39c12',
+                line: { color: '#e67e22', width: 2 }
+            },
+            hovertemplate: 'Zone B: ' + boundaries.AB + ' - ' + boundaries.BC + ' mm/s<br>Acceptable operation<extra></extra>'
+        };
+        
+        var trace3 = {
+            x: [boundaries.CD - boundaries.BC],
+            y: ['Vibration Severity'],
+            name: 'Zone C',
+            type: 'bar',
+            orientation: 'h',
+            marker: {
+                color: '#e67e22',
+                line: { color: '#d35400', width: 2 }
+            },
+            hovertemplate: 'Zone C: ' + boundaries.BC + ' - ' + boundaries.CD + ' mm/s<br>Unsatisfactory<extra></extra>'
+        };
+        
+        var trace4 = {
+            x: [boundaries.max - boundaries.CD],
+            y: ['Vibration Severity'],
+            name: 'Zone D',
+            type: 'bar',
+            orientation: 'h',
+            marker: {
+                color: '#c0392b',
+                line: { color: '#a93226', width: 2 }
+            },
+            hovertemplate: 'Zone D: > ' + boundaries.CD + ' mm/s<br>Severe condition<extra></extra>'
+        };
+        
+        var marker = {
+            x: [rmsVelocity],
+            y: ['Vibration Severity'],
+            mode: 'markers+text',
+            type: 'scatter',
+            name: 'Measured',
+            marker: {
+                color: '#2c3e50',
+                size: 20,
+                symbol: 'circle',
+                line: { color: '#fff', width: 3 }
+            },
+            text: [rmsVelocity.toFixed(2) + ' mm/s'],
+            textposition: 'top center',
+            textfont: { size: 14, color: '#2c3e50', family: 'Arial Black' },
+            hovertemplate: 'Measured RMS Velocity: ' + rmsVelocity.toFixed(2) + ' mm/s<extra></extra>'
+        };
+        
+        var data = [trace1, trace2, trace3, trace4, marker];
+        
+        var layout = {
+            title: {
+                text: 'Vibration Severity according to ISO 20816-3',
+                font: { size: 20, color: '#2c3e50' }
+            },
+            barmode: 'stack',
+            xaxis: {
+                title: 'RMS Velocity (mm/s)',
+                range: [0, boundaries.max],
+                showgrid: true,
+                gridcolor: '#ecf0f1',
+                zeroline: true
+            },
+            yaxis: {
+                showticklabels: false
+            },
+            height: 400,
+            margin: { l: 50, r: 50, t: 80, b: 80 },
+            showlegend: true,
+            legend: {
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.2
+            },
+            hovermode: 'closest',
+            plot_bgcolor: '#fafafa',
+            paper_bgcolor: 'white'
+        };
+        
+        var config = {
+            responsive: true,
+            displayModeBar: true,
+            displaylogo: false,
+            modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+        };
+        
+        Plotly.newPlot('iso-chart', data, layout, config);
+    </script>
+    
+    
+    <div class="footer">
+        <p>Generated by <strong>Predictive Maintenance MCP Server</strong></p>
+        <p style="font-size: 0.875rem; margin-top: 0.5rem; color: var(--text-secondary);">
+            Professional machinery diagnostics and vibration analysis
+        </p>
+    </div>
+</body>
+</html>
